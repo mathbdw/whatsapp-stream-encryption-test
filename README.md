@@ -10,7 +10,7 @@ $pathIn = './static/IMAGE.original';
 $pathOut = './static/IMAGE.encrypted';
 $key = './samples/IMAGE.key';
 
-$encryption = new \WhatsApp\Stream\Encryption\Models\EncryptStreamImage($stream1, $stream2);
+$encryption = new \WhatsApp\StreamEncryption\Models\EncryptWhatsAppStreamImage($pathIn, $pathOut);
 $encryption->exec($key);
 </pre>
 
@@ -19,7 +19,7 @@ The key is not required. If there is no key after encryption, the key file will 
 $pathIn = './static/IMAGE.original';
 $pathOut = './static/IMAGE.encrypted';
 
-$encryption = new \WhatsApp\Stream\Encryption\Models\EncryptStreamImage($pathIn, $pathOut);
+$encryption = new \WhatsApp\StreamEncryption\Models\EncryptWhatsAppStreamImage($pathIn, $pathOut);
 $encryption->exec();
 </pre>
 
@@ -30,22 +30,22 @@ $pathIn = './static/IMAGE.encrypted';
 $pathOut = './static/IMAGE.original';
 $key = './samples/IMAGE.key';
 
-$enStream = new \WhatsApp\Stream\Encryption\Models\DecryptStreamImage($pathIn, $pathOut);
-$enStream->exec($key);
+$decryption = new \WhatsApp\StreamEncryption\Models\DecryptWhatsAppStreamImage($pathIn, $pathOut);
+$decryption->exec($key);
 </pre>
 
 Type file encryption
 <pre>
   //Video
-  $enStream = new \WhatsApp\Stream\Encryption\Models\EncryptStreamVideo($pathIn, $pathOut);
-  $deStream = new \WhatsApp\Stream\Encryption\Models\DecryptStreamVideo($pathIn, $pathOut);
+  $enStream = new \WhatsApp\StreamEncryption\Models\EncryptWhatsAppStreamImage($pathIn, $pathOut);
+  $deStream = new \WhatsApp\StreamEncryption\Models\DecryptWhatsAppStreamImage($pathIn, $pathOut);
   //Audio
-  $enStream = new \WhatsApp\Stream\Encryption\Models\EncryptStreamAudio($pathIn, $pathOut);
-  $deStream = new \WhatsApp\Stream\Encryption\Models\DecryptStreamAudio($pathIn, $pathOut);
+  $enStream = new \WhatsApp\StreamEncryption\Models\EncryptWhatsAppStreamAudio($pathIn, $pathOut);
+  $deStream = new \WhatsApp\StreamEncryption\Models\DecryptWhatsAppStreamAudio($pathIn, $pathOut);
   //Image
-  $enStream = new \WhatsApp\Stream\Encryption\Models\EncryptStreamImage($pathIn, $pathOut);
-  $deStream = new \WhatsApp\Stream\Encryption\Models\DecryptStreamImage($pathIn, $pathOut);
+  $enStream = new \WhatsApp\StreamEncryption\Models\EncryptWhatsAppStreamImage($pathIn, $pathOut);
+  $deStream = new \WhatsApp\StreamEncryption\Models\DecryptWhatsAppStreamImage($pathIn, $pathOut);
   //Document
-  $enStream = new \WhatsApp\Stream\Encryption\Models\EncryptStreamDocument($pathIn, $pathOut);
-  $deStream = new \WhatsApp\Stream\Encryption\Models\DecryptStreamDocument($pathIn, $pathOut);
+  $enStream = new \WhatsApp\StreamEncryption\Models\EncryptWhatsAppStreamDocument($pathIn, $pathOut);
+  $deStream = new \WhatsApp\StreamEncryption\Models\DecryptWhatsAppStreamDocument($pathIn, $pathOut);
 </pre>
