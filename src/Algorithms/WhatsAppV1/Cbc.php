@@ -1,10 +1,10 @@
 <?php
 
-namespace WhatsApp\Stream\Encryption\Algorithms\WhatsAppV1;
+namespace WhatsApp\StreamEncryption\Algorithms\WhatsAppV1;
 
-use WhatsApp\Stream\Encryption\Exceptions\InvalidArgumentEncrypteException;
+use WhatsApp\StreamEncryption\Exceptions\InvalidArgumentEncrypteException;
 
-class Algorithm
+class Cbc
 {
     const MEDIA_TYPE_IMAGE = 'image';
     const MEDIA_TYPE_VIDEO = 'video';
@@ -14,11 +14,13 @@ class Algorithm
     const HASH_HKDF_LENGTH = 112;
     const HASH_ALGO = 'sha256';
     const SSL_ALGO = 'aes-256-cbc';
+    const BLOCK_SIZE = 16;
 
     public string $mediaKey;
     public array $mediaKeyExpanded;
 
     public string $appInfo;
+    private \HashContext $ctxHash;
 
     public function setAppInfo(string $appInfo): void
     {
@@ -37,13 +39,13 @@ class Algorithm
     }
 
     /**
-     * Validate MediaKey
+     *  Validate MediaKey
      *
      * @param string $mediaKey
      *
-     * @return bool
+     * @return void
      */
-    public function validateMediaKey(string $mediaKey): bool
+    public function validateMediaKey(string $mediaKey) : void
     {
         if (!is_file($mediaKey)) {
             throw new InvalidArgumentEncrypteException("The filename key does not exist.");
@@ -55,8 +57,6 @@ class Algorithm
         }
 
         $this->mediaKey = $data;
-
-        return true;
     }
 
     /**
@@ -79,6 +79,10 @@ class Algorithm
             'macKey' => substr($mediaKeyExpanded, 48, 32),
             'refKey' => substr($mediaKeyExpanded, 80),
         ];
+
+
+        $this->ctxHash = hash_init(self::HASH_ALGO, HASH_HMAC, $this->mediaKeyExpanded['macKey']);
+        $this->hashUpdate($this->mediaKeyExpanded['iv']);
     }
 
     /**
@@ -96,21 +100,32 @@ class Algorithm
         ];
     }
 
+    public function getAlgo(): string
+    {
+        return self::SSL_ALGO;
+    }
+
     /**
-     * Return first 10 bytes generate HASH_HMAC
+     * Hash update
      *
-     * @param string $encryptedData
+     * @param string $data
+     *
+     * @return void
+     */
+    protected function hashUpdate(string $data): void
+    {
+        hash_update($this->ctxHash, $data);
+    }
+
+    /**
+     * Returns first 10 bytes of hash
      *
      * @return string
      */
-    protected function generateHmac(string $encryptedData): string
+    protected function getHash(): string
     {
-        $hash = hash_hmac(
-            self::HASH_ALGO,
-            $this->mediaKeyExpanded['iv'] . $encryptedData,
-            $this->mediaKeyExpanded['macKey'],
-            true
-        );
+        $hash = hash_final($this->ctxHash, true);
+
         return substr($hash, 0, 10);
     }
 }
