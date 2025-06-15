@@ -55,6 +55,8 @@ class EncryptWhatsAppStream extends Encryption implements EncryptionInterface
                 $algo->mediaKey
             );
         }
+
+        $this->closeStreams();
     }
 
     /**

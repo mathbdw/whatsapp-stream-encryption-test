@@ -65,4 +65,13 @@ class Encryption
 
         return true;
     }
+
+    /**
+     * @return void
+     */
+    public function closeStreams() : void
+    {
+        $this->streamSource->close();
+        $this->streamDestination->close();
+    }
 }

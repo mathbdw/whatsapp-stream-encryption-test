@@ -40,6 +40,7 @@ class DecryptWhatsAppStream extends Encryption implements EncryptionInterface
         }
 
         Utils::copyToStream($this->streamSource, $this->streamDestination);
+        $this->closeStreams();
     }
 
     /**
