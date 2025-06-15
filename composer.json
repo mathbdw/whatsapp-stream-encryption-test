@@ -8,9 +8,7 @@
 		"psr/http-message": "^1.0",
 		"psr/http-server-middleware": "^1.0",
 		"ext-fileinfo": "*",
-		"ext-openssl": "*"
-	},
-	"require-dev": {
+		"ext-openssl": "*",
 		"guzzlehttp/psr7": "^2.0"
 	},
 	"authors": [
@@ -22,7 +20,7 @@
 	],
 	"autoload": {
 		"psr-4": {
-			"WhatsApp\\Stream\\Encryption\\": "src/"
+			"WhatsApp\\StreamEncryption\\": "src/"
 		}
 	}
 }

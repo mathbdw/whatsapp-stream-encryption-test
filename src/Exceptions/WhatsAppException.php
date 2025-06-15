@@ -1,6 +1,6 @@
 <?php
 
-namespace WhatsApp\Stream\Encryption\Exceptions;
+namespace WhatsApp\StreamEncryption\Exceptions;
 
 use Throwable;
 
