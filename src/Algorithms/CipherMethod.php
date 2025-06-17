@@ -4,8 +4,6 @@ namespace WhatsApp\StreamEncryption\Algorithms;
 
 interface CipherMethod
 {
-    public function getAlgo(): string;
-
     /**
      * Execute encryption
      *

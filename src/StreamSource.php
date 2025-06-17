@@ -15,6 +15,8 @@ class StreamSource implements StreamInterface
 {
     use StreamDecoratorTrait;
 
+    private StreamInterface $stream;
+
     protected CipherMethod $algo;
 
     /**
