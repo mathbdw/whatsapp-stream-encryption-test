@@ -2,7 +2,7 @@
 
 namespace WhatsApp\StreamEncryption\Algorithms\WhatsAppV1;
 
-use WhatsApp\StreamEncryption\Exceptions\InvalidArgumentEncrypteException;
+use WhatsApp\StreamEncryption\Exceptions\InvalidArgumentException;
 
 class Cbc
 {
@@ -48,12 +48,12 @@ class Cbc
     public function validateMediaKey(string $mediaKey) : void
     {
         if (!is_file($mediaKey)) {
-            throw new InvalidArgumentEncrypteException("The filename key does not exist.");
+            throw new InvalidArgumentException("The filename key does not exist.");
         }
         $data = file_get_contents($mediaKey);
 
         if (strlen($data) !== 32) {
-            throw new InvalidArgumentEncrypteException('Media key must be 32 bytes.');
+            throw new InvalidArgumentException('Media key must be 32 bytes.');
         }
 
         $this->mediaKey = $data;
@@ -98,11 +98,6 @@ class Cbc
             self::MEDIA_TYPE_AUDIO => 'WhatsApp Audio Keys',
             self::MEDIA_TYPE_DOCUMENT => 'WhatsApp Document Keys',
         ];
-    }
-
-    public function getAlgo(): string
-    {
-        return self::SSL_ALGO;
     }
 
     /**

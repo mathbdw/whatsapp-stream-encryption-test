@@ -38,7 +38,7 @@ class Encryption
 
     public function validateStreamSource(): bool
     {
-        if (!$this->streamSource) {
+        if (empty($this->streamSource)) {
             return false;
         }
 
@@ -55,7 +55,7 @@ class Encryption
 
     public function validateStreamDestination(): bool
     {
-        if (!$this->streamDestination) {
+        if (empty($this->streamDestination)) {
             return false;
         }
 
